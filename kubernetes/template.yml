@@ -1,0 +1,228 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pickup
+  labels:
+    app: pickup
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pickup
+  template:
+    metadata:
+      labels:
+        app: pickup
+    spec:
+      containers:
+        - name: pickup
+          image: username/pickup:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    app: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: username/payment:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laundryprovider
+  labels:
+    app: laundryprovider
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laundryprovider
+  template:
+    metadata:
+      labels:
+        app: laundryprovider
+    spec:
+      containers:
+        - name: laundryprovider
+          image: username/laundryprovider:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 알람
+  labels:
+    app: 알람
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: 알람
+  template:
+    metadata:
+      labels:
+        app: 알람
+    spec:
+      containers:
+        - name: 알람
+          image: username/알람:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pickup
+  labels:
+    app: pickup
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: pickup
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+  labels:
+    app: payment
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: payment
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: laundryprovider
+  labels:
+    app: laundryprovider
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: laundryprovider
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: 알람
+  labels:
+    app: 알람
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: 알람
+
