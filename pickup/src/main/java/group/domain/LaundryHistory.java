@@ -26,6 +26,10 @@ public class LaundryHistory {
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
         group.external.PaymentHistory paymentHistory = new group.external.PaymentHistory();
+
+        paymentHistory.setLaundryId(
+            getId()
+        );
         // mappings goes here
         PickupApplication.applicationContext
             .getBean(group.external.PaymentHistoryService.class)

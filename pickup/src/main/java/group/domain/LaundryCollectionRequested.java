@@ -10,4 +10,12 @@ public class LaundryCollectionRequested extends AbstractEvent {
     private Long id;
     private String pickupMethod;
     private String status;
+
+ public LaundryCollectionRequested(LaundryHistory aggregate) {
+        super(aggregate);
+    }
+
+    public LaundryCollectionRequested() {
+        super();
+    }
 }
